@@ -1,4 +1,4 @@
-#include "student.h"
+#include "Student.h"
 #include <cstring>
 
 using namespace std;
@@ -17,7 +17,7 @@ Student::Student(){
   cin.ignore();
 }
 
-char* Student::getName(){
+char* Student::getfirstName(){
   return strcat(strcat(firstname,(char*)" "),lastname);
 }
 
