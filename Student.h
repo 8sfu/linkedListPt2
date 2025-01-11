@@ -5,7 +5,7 @@
 class Student {
  public:
   Student();
-  char* getName();
+  char* getfirstName(); //Actually gets full name but named inaccurately for compatibility with Node.cpp and Node.h
   int getID();
   float getGPA();
  private:
