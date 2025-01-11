@@ -4,6 +4,7 @@
 #include <cmath>
 #include "Student.h"
 #include "Node.h"
+#include <iomanip>
 
 using namespace std;
 
@@ -33,7 +34,7 @@ Node* addNode(Node* listHead, Node* currentNode, Node* newNode){
       newNode->setNext(currentNode->getNext());
       currentNode->setNext(newNode);
       return listHead;
-    } else {
+    } else { //recurse thru list
       addNode(listHead,currentNode->getNext(),newNode);
     }
   }  
@@ -61,7 +62,8 @@ Node* deleteNode(Node* listHead, Node* currentNode, int* id){
 
 void printList(Node* node){
   if(node != nullptr){
-    cout << ((*node).getStudent())->getFirstName() << " " << ((*node).getStudent())->getLastName() << " (ID:" << ((*node).getStudent())->getID() << ") (GPA: " << ((*node).getStudent())->getGPA() << ") " << endl;
+    cout << fixed;
+    cout << ((*node).getStudent())->getFirstName() << " " << ((*node).getStudent())->getLastName() << " (ID:" << ((*node).getStudent())->getID() << ") (GPA: " << setprecision(2) << ((*node).getStudent())->getGPA() << ") " << endl;
     printList(node->getNext());
   } else {
     cout << endl;
@@ -111,7 +113,8 @@ int main(){
 	double total = 0;
 	int count = 0;
 	average(listHead,&total,&count);
-	cout << total/count << endl;
+	cout << fixed;
+	cout << setprecision(2) << total/count << endl;
       }else if(cmp(input,"QUIT")){
 	running = false;
       }

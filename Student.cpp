@@ -17,8 +17,12 @@ Student::Student(){
   cin.ignore();
 }
 
-char* Student::getfirstName(){
-  return strcat(strcat(firstname,(char*)" "),lastname);
+char* Student::getFirstName(){
+  return firstname;
+}
+
+char* Student::getLastName(){
+  return lastname;
 }
 
 int Student::getID(){
