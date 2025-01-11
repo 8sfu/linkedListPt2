@@ -7,6 +7,14 @@
 
 using namespace std;
 
+bool cmp(char* input, const char* check){
+  if(!strcmp(input,(char*)check)){
+    return true;
+  } else {
+    return false;
+  }
+}
+
 Node* addNode(Node* listHead, Node* currentNode, Node* newNode){
   int checkID = ((*newNode).getStudent())->getID();
   if(currentNode == listHead){ //setting to new list head
@@ -51,20 +59,21 @@ Node* deleteNode(Node* listHead, Node* currentNode, int* id){
   return listHead;
 }
 
-bool cmp(char* input, const char* check){
-  if(!strcmp(input,(char*)check)){
-    return true;
-  } else {
-    return false;
-  }
-}
-
 void printList(Node* node){
   if(node != nullptr){
     cout << ((*node).getStudent())->getFirstName() << " " << ((*node).getStudent())->getLastName() << " (ID:" << ((*node).getStudent())->getID() << ") (GPA: " << ((*node).getStudent())->getGPA() << ") " << endl;
     printList(node->getNext());
   } else {
     cout << endl;
+  }
+  return;
+}
+
+void average(Node* currentNode, double* total, int* count){
+  if(currentNode != nullptr){
+    *total += ((*currentNode).getStudent())->getGPA();
+    *count += 1;
+    average(currentNode->getNext(),total,count);
   }
   return;
 }
@@ -99,6 +108,10 @@ int main(){
 	cin.ignore();
 	listHead = deleteNode(listHead,listHead,&id);
       }else if(cmp(input,"AVERAGE")){
+	double total = 0;
+	int count = 0;
+	average(listHead,&total,&count);
+	cout << total/count << endl;
       }else if(cmp(input,"QUIT")){
 	running = false;
       }
