@@ -7,7 +7,7 @@
 
 using namespace std;
 
-Node* addNode(Node* listHead, Node* currentNode, Node* newNode){
+/*Node* addNode(Node* listHead, Node* currentNode, Node* newNode){
   int currentID = ((*currentNode).getStudent())->getID(); 
   int checkID = ((*newNode).getStudent())->getID();
   if(currentNode == listHead){
@@ -30,10 +30,34 @@ Node* addNode(Node* listHead, Node* currentNode, Node* newNode){
     }
   }
   return listHead;
+  }*/
+
+Node* addNode(Node* listHead, Node* currentNode, Node* newNode){
+  int checkID = ((*newNode).getStudent())->getID();
+  if(currentNode == listHead){ //setting to new list head
+    int currentID = ((*listHead).getStudent())->getID();
+    if(checkID < currentID){
+      newNode->setNext(currentNode);
+      return newNode;
+    }
+  }
+  if (currentNode->getNext() == nullptr){ //appending to end of list
+    currentNode->setNext(newNode);
+    return listHead;
+  } else { //inserting in middle of list
+    int currentNextID = ((*((*currentNode).getNext())).getStudent())->getID();
+    if(checkID < currentNextID){
+      newNode->setNext(currentNode->getNext());
+      currentNode->setNext(newNode);
+      return listHead;
+    } else {
+      addNode(listHead,currentNode->getNext(),newNode);
+    }
+  }  
+  return listHead;
 }
 
 Node* deleteNode(Node* listHead, Node* currentNode, int* id){
-  int currentID = ((*currentNode).getStudent())->getID();
   int checkID = *id;
   if(currentNode == listHead){
     int currentID = ((*currentNode).getStudent())->getID();
@@ -103,6 +127,7 @@ int main(){
       cin.getline(input,20);
       if(cmp(input,"ADD")){
 	listHead = addNode(listHead,listHead,new Node(new Student()));
+	
       }else if(cmp(input,"PRINT")){
 	printList(listHead);
       }else if(cmp(input,"DELETE")){
